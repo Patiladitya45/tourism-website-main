@@ -2,14 +2,14 @@ pipeline {
     agent any
 
     environment {
-        IMAGE_NAME = "patiladi09/movie-app"
+        IMAGE_NAME = "patiladi09/tourism-website-main"
         IMAGE_TAG = "latest"
     }
 
     stages {
         stage('Checkout Code') {
             steps {
-                git branch: 'main', url: 'https://github.com/Patiladitya45/movie-app.git'
+                git branch: 'main', url: 'https://github.com/Patiladitya45/tourism-website-main.git'
             }
         }
 
@@ -23,7 +23,7 @@ pipeline {
 
         stage('Login to Docker Hub') {
             steps {
-                withCredentials([usernamePassword(credentialsId: 'docker-creds', usernameVariable: 'DOCKER_USER', passwordVariable: 'DOCKER_PASS')]) {
+                withCredentials([usernamePassword(credentialsId: 'dockerhub-ise', usernameVariable: 'DOCKER_USER', passwordVariable: 'DOCKER_PASS')]) {
                     bat """
                         docker logout
                         echo %DOCKER_PASS% | docker login -u %DOCKER_USER% --password-stdin
